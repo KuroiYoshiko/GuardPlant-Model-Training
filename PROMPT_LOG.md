@@ -16,3 +16,11 @@
 - **Deliverable updated:** `guardplant_model_benchmark.ipynb`
 - **Training configuration:** 20 epochs per model, 224×224 inputs, shared 200-class label mapping, GPU when available
 - **Summary:** Added Ultralytics Python API training with native run artifacts and copying of the best validation weights to `yolov8_best.pt`; verified the YOLO checkpoint label order; initialized ImageNet-pretrained EfficientNet-B0 with a 200-class output head; configured cross-entropy loss, AdamW (`lr=1e-3`), and cosine annealing; implemented native PyTorch training and validation passes with sample-weighted loss and Top-1/Top-5 accuracy; persisted epoch history for later plots; and saved the best validation Top-1 checkpoint to `efficientnet_best.pth`.
+
+## 2026-08-22 — Step 3: Evaluation, Comparative Benchmarking, Visualizations & Export
+
+- **Assistant model:** OpenAI Codex (GPT-5)
+- **Evaluated checkpoints:** `yolov8_best.pt` and `efficientnet_best.pth`
+- **Evaluation protocol:** Complete held-out `test_loader`; Top-1/Top-5 accuracy; warmed-up batch-size-1 forward latency with CUDA synchronization; checkpoint file size
+- **Outputs:** `benchmark_results.csv`, `plots/training_curves.png`, `plots/confusion_matrix.png`, `yolov8n_guardplant.onnx`, and `efficientnet_b0_guardplant.onnx`
+- **Summary:** Added fresh best-checkpoint loading and common-test-loader evaluation for both models; generated a Markdown/Pandas comparison table and CSV; added comparative training curves from Ultralytics and EfficientNet histories; created row-normalized side-by-side confusion matrices for the 15 most-supported test classes plus an `Other` bucket; exported and validated both ONNX graphs; and added Google Drive backup to `/content/drive/MyDrive/GuardPlant_Artifacts/` for both ONNX models, `class_names.json`, and `benchmark_results.csv`.
